@@ -1,41 +1,84 @@
-# Private-Document-Rag-Chatbot
-# Private Document AI Chatbot
+# Private Document RAG Chatbot
 
-A 100% local RAG application that lets you upload PDFs, TXT, XML, DOCX and ask questions in natural language.
+An end-to-end **Retrieval-Augmented Generation (RAG)** application that allows users to upload private documents (PDF, TXT, XML, DOCX) and ask questions in natural language — **completely offline**.
 
-Completely private — no data ever leaves my laptop.
+> No APIs. No cloud. No data leaves the local machine.
 
-## Why I built this
-I wanted to understand Retrieval-Augmented Generation from scratch without using any paid API. After a lot of trial and error with Windows file locks, Chroma database issues, and Ollama setup, I finally got a clean, dark-mode web app that actually works reliably.
+---
 
-## Features
-- Drag & drop file upload
-- Supports PDF, TXT, XML, DOCX
-- Rebuild knowledge base with one click
-- Chat history + download button
-- Clear chat button
-- Dark mode 
+## 🚀 Motivation
 
-## Tech stack
-- Ollama + llama3.2 (runs locally)
-- LangChain
-- Chroma vector database
-- Streamlit frontend
+This project was built to understand how RAG systems work internally without relying on paid APIs.
+The goal was to implement the full pipeline locally using embeddings, vector similarity search, and an LLM running through Ollama.
 
-## How to run
+---
+
+## ✨ Features
+
+* Drag & drop document upload
+* Supports PDF, TXT, XML, DOCX formats
+* One-click knowledge base rebuild
+* Conversational chat interface with history
+* Download chat option
+* Clear chat functionality
+* Dark mode Streamlit UI
+
+---
+
+## 🧠 Tech Stack
+
+* **LLM:** Ollama with Llama 3.2 (local)
+* **Framework:** LangChain
+* **Vector Database:** ChromaDB
+* **Frontend:** Streamlit
+* **Embeddings:** Ollama Embeddings
+* **Language:** Python
+
+---
+
+## ⚙️ How It Works (RAG Pipeline)
+
+1. Documents are loaded and split into chunks with overlap
+2. Text chunks are converted into embeddings
+3. Embeddings are stored in Chroma vector database
+4. User query is embedded and matched using semantic similarity search
+5. Relevant chunks are passed to the LLM as context
+6. LLM generates a context-aware answer
+
+---
+
+## ▶️ Run Locally
+
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
+```
 
-## What I actually learned 
+Make sure **Ollama** is running with the Llama model pulled before starting the app.
 
-- How embeddings really work under the hood — not just calling `OllamaEmbeddings()`  
-- Why chunk size + overlap matters (tried 500/100 → 1000/200 → 1500/300 and saw real differences in answers)  
-- How vector similarity search works inside Chroma (and why `k=5` is usually enough)  
-- Windows file locking hell: why `shutil.rmtree` fails and how to fix it with `ignore_errors=True` + killing python.exe  
-- The difference between `DirectoryLoader` and manual loader per file type  
-- Why you must filter out empty documents or Chroma throws `ValueError: Expected non-empty list`  
-- How to make Streamlit not hang forever when Ollama isn’t running  
-- Turning a 200-line messy script into a clean, reusable, dark-mode web app
+---
 
-Phase 1 complete. Next: fine-tuning my own model.
+## 📚 Key Learnings
+
+* Practical understanding of how **embeddings** and **vector similarity search** work
+* Impact of **chunk size and overlap** on retrieval quality
+* Internals of ChromaDB and why top-k retrieval (k=5) is effective
+* Handling Windows file locking issues while rebuilding vector stores
+* Importance of filtering empty documents to avoid embedding errors
+* Building a clean Streamlit app around a complex RAG pipeline
+
+---
+
+## ✅ Outcome
+
+A fully functional, local, private AI chatbot that demonstrates real-world implementation of:
+
+**RAG | Embeddings | Vector Databases | LLM Integration | Semantic Search | Streamlit Deployment**
+
+---
+
+### Next Step
+
+Fine-tuning and extending the system for domain-specific knowledge.
+
+
